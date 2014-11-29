@@ -1,0 +1,67 @@
+apply plugin: 'java'
+apply plugin:'application'
+
+repositories {
+	maven {
+		url "https://swt-repo.googlecode.com/svn/repo"
+		flatDir {
+			dirs 'libs'
+		}
+	}
+}
+
+mainClassName = "dh.tool.justext.demo.MainApp"
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar', '*.xml'])
+	compile project(':JusText')
+	compile project(':Readability')
+	compile 'net.java.dev.designgridlayout:designgridlayout:1.+'
+	compile 'com.google.guava:guava:15.0'
+	compile 'org.apache.logging.log4j:log4j-api:2.+'
+	compile 'org.apache.logging.log4j:log4j-core:2.+'
+	compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.+'
+
+	compile 'commons-lang:commons-lang:2.+'
+	compile 'org.apache.httpcomponents:httpclient:4.+'
+
+	testCompile('junit:junit:4.4+')
+
+	//swt dependencies
+	compile 'org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:4.+'
+	/*
+	 For other platforms, just replace artifactId with the appropriate value:
+
+	 org.eclipse.swt.win32.win32.x86
+	 org.eclipse.swt.win32.win32.x86_64
+	 org.eclipse.swt.gtk.linux.x86
+	 org.eclipse.swt.gtk.linux.x86_64
+	 org.eclipse.swt.cocoa.macosx
+	 org.eclipse.swt.cocoa.macosx.x86_64
+	 */
+}
+
+/**
+ * Comment this when building jar to avoid duplicate file on archive (Bug gradle)
+ * - This code is necessary only when debugging from IDE
+ * - other way to debugging from IDE without this code:
+ *   manually copy resources to build/classes/maine
+ */
+sourceSets {
+	main {
+		resources {
+			srcDir 'resources'
+			include '*.*'
+			output.resourcesDir = "${project.buildDir}/classes/main"
+		}
+	}
+}
+
+
+// Uncomment this to Build fat jar
+/*
+jar {
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	manifest { attributes 'Main-Class': 'dh.tool.justext.demo.MainApp' }
+}
+*/
