@@ -1,4 +1,6 @@
-Extract article main content from a Html page
+#justext
+
+A java implementation of the [justext algorithm](https://code.google.com/p/justext/wiki/Algorithm), which help to extract article main content from a Html page such as a blog post, an article, justex will remove all the ads, banners, menus of the page and give you the main content.
 
 #Demo Application
 
